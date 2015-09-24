@@ -6,23 +6,10 @@ using System.Threading.Tasks;
 
 namespace RxReactiveStreamsCSharp
 {
-    public interface IFlowable<out T>
-    {
-
-    }
-
-    public interface ISubscriber<in T>
-    {
-
-    }
-
     public interface ISubscription
     {
+        void Request(long n);
 
-    }
-
-    public interface IProcessor<in T, out R>
-    {
-
+        void Cancel();
     }
 }
