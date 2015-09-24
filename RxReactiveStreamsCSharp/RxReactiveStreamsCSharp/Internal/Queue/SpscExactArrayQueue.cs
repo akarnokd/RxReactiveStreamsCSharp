@@ -20,6 +20,10 @@ namespace RxReactiveStreamsCSharp.Internal.Queue
         
         public SpscExactArrayQueue(int capacity)
         {
+            if (capacity < 8)
+            {
+                capacity = 8;
+            }
             int c = QueueHelper.round2(capacity);
             this.mask = c - 1;
             this.skip = c - capacity;

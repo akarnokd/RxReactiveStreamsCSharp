@@ -56,6 +56,7 @@
     <Compile Include="Internal\ListSubscriber.cs" />
     <Compile Include="Internal\LastSubscriber.cs" />
     <Compile Include="Internal\EnumerableFlowable.cs" />
+    <Compile Include="Internal\Operators\OperatorOnBackpressureBuffer.cs" />
     <Compile Include="Internal\Operators\OperatorOnBackpressureDrop.cs" />
     <Compile Include="Internal\Operators\OperatorFilter.cs" />
     <Compile Include="Internal\Operators\OperatorMap.cs" />
@@ -72,6 +73,7 @@
     <Compile Include="ISubscriber.cs" />
     <Compile Include="ISubscription.cs" />
     <Compile Include="Internal\NeverFlowable.cs" />
+    <Compile Include="MissingBackpressureException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Internal\ScalarFlowable.cs" />
     <Compile Include="Scheduler.cs" />

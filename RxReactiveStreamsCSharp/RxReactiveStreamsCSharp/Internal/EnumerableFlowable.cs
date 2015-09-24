@@ -77,11 +77,7 @@ namespace RxReactiveStreamsCSharp.Internal
                 {
                     long r = Interlocked.Read(ref requested);
 
-                    long u = r + n;
-                    if (u < 0L)
-                    {
-                        u = long.MaxValue;
-                    }
+                    long u = BackpressureHelper.addCap(r, n);
                     if (Interlocked.CompareExchange(ref requested, u, r) == r)
                     {
                         if (r == 0L) {
