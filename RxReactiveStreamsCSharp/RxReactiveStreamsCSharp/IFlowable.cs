@@ -9,6 +9,5 @@ namespace RxReactiveStreamsCSharp
     public interface IFlowable<out T>
     {
         void Subscribe(ISubscriber<T> s);
-
     }
 }

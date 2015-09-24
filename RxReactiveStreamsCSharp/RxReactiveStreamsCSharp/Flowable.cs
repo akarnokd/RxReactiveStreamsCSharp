@@ -8,6 +8,5 @@ namespace RxReactiveStreamsCSharp
 {
     public static class Flowable
     {
-
     }
 }

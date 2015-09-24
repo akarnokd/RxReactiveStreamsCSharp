@@ -8,5 +8,6 @@ namespace RxReactiveStreamsCSharp
 {
     public static class Subscriber
     {
+
     }
 }
