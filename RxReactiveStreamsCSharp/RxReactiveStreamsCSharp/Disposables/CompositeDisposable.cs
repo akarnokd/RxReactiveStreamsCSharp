@@ -6,7 +6,20 @@ using System.Threading.Tasks;
 
 namespace RxReactiveStreamsCSharp.Disposables
 {
-    public sealed class SetCompositeDisposable : IDisposable
+    public interface ICompositeDisposable : IDisposable
+    {
+        bool Add(IDisposable d);
+
+        bool Delete(IDisposable d);
+
+        void Remove(IDisposable d);
+
+        void Clear();
+
+        bool IsDisposed();
+    }
+
+    public sealed class SetCompositeDisposable : ICompositeDisposable
     {
         volatile bool disposed;
 
@@ -131,7 +144,7 @@ namespace RxReactiveStreamsCSharp.Disposables
         }
     }
 
-    public sealed class ListCompositeDisposable : IDisposable
+    public sealed class ListCompositeDisposable : ICompositeDisposable
     {
         volatile bool disposed;
 
@@ -250,9 +263,9 @@ namespace RxReactiveStreamsCSharp.Disposables
             }
         }
 
-        public bool isDisposed()
+        public bool IsDisposed()
         {
-            return disposed;
+            throw new NotImplementedException();
         }
     }
 

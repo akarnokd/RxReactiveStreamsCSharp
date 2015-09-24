@@ -46,6 +46,7 @@
     <Compile Include="IFlowableOperator.cs" />
     <Compile Include="IFlowableTransformer.cs" />
     <Compile Include="Disposables\CompositeDisposable.cs" />
+    <Compile Include="Internal\BackpressureHelper.cs" />
     <Compile Include="Internal\EmptyFlowable.cs" />
     <Compile Include="Internal\EmptySubscription.cs" />
     <Compile Include="Flowable.cs" />
@@ -55,18 +56,26 @@
     <Compile Include="Internal\ListSubscriber.cs" />
     <Compile Include="Internal\LastSubscriber.cs" />
     <Compile Include="Internal\EnumerableFlowable.cs" />
+    <Compile Include="Internal\Operators\OperatorOnBackpressureDrop.cs" />
     <Compile Include="Internal\Operators\OperatorFilter.cs" />
     <Compile Include="Internal\Operators\OperatorMap.cs" />
     <Compile Include="Internal\Operators\OperatorTake.cs" />
+    <Compile Include="Internal\Queue\QueueHelper.cs" />
+    <Compile Include="Internal\Queue\SpscExactArrayQueue.cs" />
     <Compile Include="Internal\Queue\SpscArrayQueue.cs" />
     <Compile Include="Internal\RangeFlowable.cs" />
+    <Compile Include="Internal\Schedulers\ScheduledRunnable.cs" />
+    <Compile Include="Internal\Queue\SpscLinkedArrayQueue.cs" />
+    <Compile Include="Internal\Schedulers\ThreadPoolScheduler.cs" />
     <Compile Include="IProcessor.cs" />
+    <Compile Include="IRunnable.cs" />
     <Compile Include="ISubscriber.cs" />
     <Compile Include="ISubscription.cs" />
     <Compile Include="Internal\NeverFlowable.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Internal\ScalarFlowable.cs" />
     <Compile Include="Scheduler.cs" />
+    <Compile Include="Schedulers.cs" />
     <Compile Include="Subscriber.cs" />
   </ItemGroup>
   <ItemGroup />

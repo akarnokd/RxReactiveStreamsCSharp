@@ -7,36 +7,38 @@ using System.Threading.Tasks;
 
 namespace RxReactiveStreamsCSharp.Internal.Queue
 {
-    public sealed class SpscArrayQueue<T> where T : class
+    public sealed class SpscExactArrayQueue<T> where T : class
     {
         readonly T[] array;
         readonly int mask;
+        readonly int skip;
 
         long producerIndex;
 
         long consumerIndex;
 
         
-        public SpscArrayQueue(int capacity)
+        public SpscExactArrayQueue(int capacity)
         {
             int c = QueueHelper.round2(capacity);
             this.mask = c - 1;
+            this.skip = c - capacity;
             this.array = new T[c];
         }   
 
         public bool Offer(T value)
         {
-
             long p = producerIndex;
             T[] a = array;
 
 
-            int offset = ((int)p) & mask;
+            int offsetSkip = ((int)(p + skip)) & mask;
 
-            if (Volatile.Read(ref a[offset]) != null)
+            if (Volatile.Read(ref a[offsetSkip]) != null)
             {
                 return false;
             }
+            int offset = (int)p & mask;
             Volatile.Write(ref producerIndex, p + 1);
             Volatile.Write(ref a[offset], value);
             return true;
