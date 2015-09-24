@@ -40,13 +40,25 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Disposables\BooleanDisposable.cs" />
+    <Compile Include="Disposables\MultipleAssignmentDisposable.cs" />
+    <Compile Include="Disposables\SerialDisposable.cs" />
+    <Compile Include="IFlowableOperator.cs" />
+    <Compile Include="IFlowableTransformer.cs" />
+    <Compile Include="Disposables\CompositeDisposable.cs" />
     <Compile Include="Internal\EmptyFlowable.cs" />
     <Compile Include="Internal\EmptySubscription.cs" />
     <Compile Include="Flowable.cs" />
     <Compile Include="IFlowable.cs" />
     <Compile Include="Internal\ErrorFlowable.cs" />
+    <Compile Include="Internal\LiftFlowable.cs" />
     <Compile Include="Internal\ListSubscriber.cs" />
     <Compile Include="Internal\LastSubscriber.cs" />
+    <Compile Include="Internal\EnumerableFlowable.cs" />
+    <Compile Include="Internal\Operators\OperatorFilter.cs" />
+    <Compile Include="Internal\Operators\OperatorMap.cs" />
+    <Compile Include="Internal\Operators\OperatorTake.cs" />
+    <Compile Include="Internal\Queue\SpscArrayQueue.cs" />
     <Compile Include="Internal\RangeFlowable.cs" />
     <Compile Include="IProcessor.cs" />
     <Compile Include="ISubscriber.cs" />
@@ -54,8 +66,10 @@
     <Compile Include="Internal\NeverFlowable.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Internal\ScalarFlowable.cs" />
+    <Compile Include="Scheduler.cs" />
     <Compile Include="Subscriber.cs" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
