@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace RxReactiveStreamsCSharp.Internal.Queue
 {
-    public sealed class SpscLinkedArrayQueue<T> where T : class
+    public sealed class SpscLinkedArrayQueue<T> : IQueue<T> where T : class
     {
 
         long producerIndex;
@@ -22,7 +22,7 @@ namespace RxReactiveStreamsCSharp.Internal.Queue
 
         public SpscLinkedArrayQueue(int capacity)
         {
-            int c = QueueHelper.round2(capacity);
+            int c = QueueHelper.Round2(capacity);
 
             mask = c - 1;
 

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace RxReactiveStreamsCSharp.Internal.Queue
 {
-    public sealed class SpscArrayQueue<T> where T : class
+    public sealed class SpscArrayQueue<T> : IQueue<T> where T : class
     {
         readonly T[] array;
         readonly int mask;
@@ -19,7 +19,7 @@ namespace RxReactiveStreamsCSharp.Internal.Queue
         
         public SpscArrayQueue(int capacity)
         {
-            int c = QueueHelper.round2(capacity);
+            int c = QueueHelper.Round2(capacity);
             this.mask = c - 1;
             this.array = new T[c];
         }   

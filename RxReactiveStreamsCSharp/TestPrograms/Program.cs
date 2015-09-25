@@ -21,8 +21,8 @@ namespace TestPrograms
                 // Asynchronous range
                 // IObservable<int> o = Observable.Range(1, i).ObserveOn(Scheduler.Default);
                 // Pipelined range
-                IFlowable<int> o = Flowable.Range(1, i);
-                ISubscriber<int> ob = Subscriber.Create<int>(v => { });
+                IFlowable<object> o = Flowable.Range(1, i).FlatMap(j => Flowable.Just((object)j));
+                ISubscriber<object> ob = Subscriber.Create<object>(v => { });
                 // --------------------------------
                 long total = 0;
                 long totalElapsed = 0L;

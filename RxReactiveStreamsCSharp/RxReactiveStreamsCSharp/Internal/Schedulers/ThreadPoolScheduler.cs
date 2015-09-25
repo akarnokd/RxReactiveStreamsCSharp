@@ -1,5 +1,6 @@
 ﻿using RxReactiveStreamsCSharp.Disposables;
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -40,14 +41,14 @@ namespace RxReactiveStreamsCSharp.Internal.Schedulers
         {
 
             readonly SetCompositeDisposable set;
-            readonly Queue<ScheduledRunnable> queue;
+            readonly ConcurrentQueue<ScheduledRunnable> queue;
 
             int wip;
 
             public ThreadPoolWorker()
             {
                 set = new SetCompositeDisposable();
-                queue = new Queue<ScheduledRunnable>();
+                queue = new ConcurrentQueue<ScheduledRunnable>();
             }
 
             public override void Dispose()
@@ -55,7 +56,8 @@ namespace RxReactiveStreamsCSharp.Internal.Schedulers
                 set.Dispose();
                 if (Interlocked.Increment(ref wip) == 1)
                 {
-                    queue.Clear();
+                    ScheduledRunnable v;
+                    while (queue.TryDequeue(out v)) ;
                 }
             }
 
@@ -99,17 +101,19 @@ namespace RxReactiveStreamsCSharp.Internal.Schedulers
 
                     for (;;)
                     {
-                        ScheduledRunnable sr = queue.Dequeue();
+                        ScheduledRunnable sr;
 
-                        if (sr == null)
+                        if (queue.TryDequeue(out sr))
+                        {
+                            if (!sr.IsDisposed())
+                            {
+                                sr.Run();
+                            }
+                        } else
                         {
                             break;
                         }
 
-                        if (!sr.IsDisposed())
-                        {
-                            sr.Run();
-                        }
                     }
 
                     missed = Interlocked.Add(ref wip, -missed);

@@ -52,15 +52,19 @@
     <Compile Include="Flowable.cs" />
     <Compile Include="IFlowable.cs" />
     <Compile Include="Internal\ErrorFlowable.cs" />
+    <Compile Include="Internal\FlowableObservable.cs" />
     <Compile Include="Internal\LiftFlowable.cs" />
     <Compile Include="Internal\ListSubscriber.cs" />
     <Compile Include="Internal\LastSubscriber.cs" />
     <Compile Include="Internal\EnumerableFlowable.cs" />
+    <Compile Include="Internal\ObservableFlowable.cs" />
+    <Compile Include="Internal\Operators\OperatorFlatMap.cs" />
     <Compile Include="Internal\Operators\OperatorOnBackpressureBuffer.cs" />
     <Compile Include="Internal\Operators\OperatorOnBackpressureDrop.cs" />
     <Compile Include="Internal\Operators\OperatorFilter.cs" />
     <Compile Include="Internal\Operators\OperatorMap.cs" />
     <Compile Include="Internal\Operators\OperatorTake.cs" />
+    <Compile Include="Internal\Queue\IQueue.cs" />
     <Compile Include="Internal\Queue\QueueHelper.cs" />
     <Compile Include="Internal\Queue\SpscExactArrayQueue.cs" />
     <Compile Include="Internal\Queue\SpscArrayQueue.cs" />
@@ -68,6 +72,7 @@
     <Compile Include="Internal\Schedulers\ScheduledRunnable.cs" />
     <Compile Include="Internal\Queue\SpscLinkedArrayQueue.cs" />
     <Compile Include="Internal\Schedulers\ThreadPoolScheduler.cs" />
+    <Compile Include="Internal\Subscriptions\BooleanSubscription.cs" />
     <Compile Include="IProcessor.cs" />
     <Compile Include="IRunnable.cs" />
     <Compile Include="ISubscriber.cs" />

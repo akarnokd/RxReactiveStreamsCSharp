@@ -172,9 +172,120 @@ namespace RxReactiveStreamsCSharp
             return source.Lift(new OperatorTake<T>(limit));
         }
 
-        public static int bufferSize()
+        public static int BufferSize()
         {
             return 128;
+        }
+
+        public static IFlowable<T> OnBackpressureDrop<T>(this IFlowable<T> source)
+        {
+            return source.OnBackpressureDrop(v => { });
+        }
+
+        public static IFlowable<T> OnBackpressureDrop<T>(this IFlowable<T> source, Action<T> onDrop)
+        {
+            return source.Lift(new OperatorOnBackpressureDrop<T>(onDrop));
+        }
+
+        public static IFlowable<T> OnBackpressureBuffer<T>(this IFlowable<T> source) where T : class
+        {
+            return source.Lift(new OperatorOnBackpressureBuffer<T>(BufferSize(), true, () => { }));
+        }
+
+        public static IFlowable<T> OnBackpressureBuffer<T>(this IFlowable<T> source, int maxCapacity) where T : class
+        {
+            return source.Lift(new OperatorOnBackpressureBuffer<T>(maxCapacity, false, () => { }));
+        }
+
+        public static IFlowable<T> OnBackpressureBuffer<T>(this IFlowable<T> source, int maxCapacity, Action onOverflow) where T : class
+        {
+            return source.Lift(new OperatorOnBackpressureBuffer<T>(maxCapacity, false, onOverflow));
+        }
+
+        public static IFlowable<T> OnBackpressureBuffer<T>(this IFlowable<T> source, int capacityHint, bool unbounded, Action onOverflow) where T : class
+        {
+            return source.Lift(new OperatorOnBackpressureBuffer<T>(capacityHint, unbounded, onOverflow));
+        }
+
+        public static IFlowable<T> ToFlowable<T>(this IObservable<T> source)
+        {
+            return new ObservableFlowable<T>(source);
+        }
+
+        public static IFlowable<T> OnBackpressureDrop<T>(this IObservable<T> source)
+        {
+            return source.ToFlowable().OnBackpressureDrop();
+        }
+
+        public static IFlowable<T> OnBackpressureBuffer<T>(this IObservable<T> source) where T : class
+        {
+            return source.ToFlowable().OnBackpressureBuffer();
+        }
+
+        public static IObservable<T> ToObservable<T>(this IFlowable<T> source)
+        {
+            return new FlowableObservable<T>(source);
+        }
+
+        public static IFlowable<U> FlatMap<T, U>(this IFlowable<T> source, Func<T, IFlowable<U>> mapper, bool delayError, int maxConcurrency, int bufferSize) where U : class
+        {
+            return source.Lift(new OperatorFlatMap<T, U>(mapper, delayError, maxConcurrency, bufferSize));
+        }
+
+        public static IFlowable<U> FlatMap<T, U>(this IFlowable<T> source, Func<T, IFlowable<U>> mapper) where U : class
+        {
+            return source.FlatMap(mapper, false, int.MaxValue, BufferSize());
+        }
+
+        public static IFlowable<U> FlatMap<T, U>(this IFlowable<T> source, Func<T, IFlowable<U>> mapper, bool delayError) where U : class
+        {
+            return source.FlatMap(mapper, delayError, int.MaxValue, BufferSize());
+        }
+
+        public static IFlowable<U> FlatMap<T, U>(this IFlowable<T> source, Func<T, IFlowable<U>> mapper, int maxConcurrency) where U : class
+        {
+            return source.FlatMap(mapper, false, maxConcurrency, BufferSize());
+        }
+
+        public static IFlowable<U> FlatMap<T, U>(this IFlowable<T> source, Func<T, IFlowable<U>> mapper, bool delayError, int maxConcurrency) where U : class
+        {
+            return source.FlatMap(mapper, delayError, maxConcurrency, BufferSize());
+        }
+
+        public static IFlowable<T> Merge<T>(this IEnumerable<IFlowable<T>> sources) where T : class
+        {
+            return sources.ToFlowable().FlatMap(v => v);
+        }
+
+        public static IFlowable<T> Merge<T>(this IEnumerable<IFlowable<T>> sources, bool delayError) where T : class
+        {
+            return sources.ToFlowable().FlatMap(v => v, delayError);
+        }
+
+        public static IFlowable<T> Merge<T>(params IFlowable<T>[] sources) where T : class
+        {
+            if (sources.Length == 0)
+            {
+                return Empty<T>();
+            }
+            if (sources.Length == 1)
+            {
+                return sources[0];
+            }
+            return Merge(sources);
+        }
+
+        public static IFlowable<T> MergeDelayError<T>(params IFlowable<T>[] sources) where T : class
+        {
+            if (sources.Length == 0)
+            {
+                return Empty<T>();
+            }
+            if (sources.Length == 1)
+            {
+                return sources[0];
+            }
+            return Merge(sources, true);
         }
     }
 }
