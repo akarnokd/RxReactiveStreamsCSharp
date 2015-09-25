@@ -7,18 +7,18 @@ using System.Threading.Tasks;
 
 namespace RxReactiveStreamsCSharp.Disposables
 {
-    public sealed class MutlipleAssignmentDisposable : IDisposable
+    public sealed class MultipleAssignmentDisposable : IDisposable
     {
         IDisposable current;
 
         static readonly IDisposable DISPOSED = new BooleanDisposable();
 
-        public MutlipleAssignmentDisposable()
+        public MultipleAssignmentDisposable()
         {
 
         }
 
-        public MutlipleAssignmentDisposable(IDisposable d)
+        public MultipleAssignmentDisposable(IDisposable d)
         {
             current = d;
         }
