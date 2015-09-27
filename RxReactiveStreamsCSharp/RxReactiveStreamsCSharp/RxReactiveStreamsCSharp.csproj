@@ -65,6 +65,7 @@
     <Compile Include="Internal\Operators\OperatorMap.cs" />
     <Compile Include="Internal\Operators\OperatorTake.cs" />
     <Compile Include="Internal\Queue\IQueue.cs" />
+    <Compile Include="Internal\Queue\MpscLinkedQueue.cs" />
     <Compile Include="Internal\Queue\QueueHelper.cs" />
     <Compile Include="Internal\Queue\SpscExactArrayQueue.cs" />
     <Compile Include="Internal\Queue\SpscArrayQueue.cs" />
