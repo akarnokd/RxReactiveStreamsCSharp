@@ -83,19 +83,7 @@ namespace RxReactiveStreamsCSharp.Internal.Queue
 
         public int Size()
         {
-            long ci = Volatile.Read(ref consumerIndex);
-            for (;;)
-            {
-                long pi = Volatile.Read(ref producerIndex);
-
-                long ci2 = Volatile.Read(ref consumerIndex);
-
-                if (ci == ci2)
-                {
-                    return (int)(pi - ci);
-                }
-                ci = ci2;
-            }
+            return QueueHelper.Size(ref producerIndex, ref consumerIndex);
         }
 
         public void Clear()

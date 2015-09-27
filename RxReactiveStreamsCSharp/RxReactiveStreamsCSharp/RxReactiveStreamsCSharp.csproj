@@ -68,6 +68,8 @@
     <Compile Include="Internal\Queue\QueueHelper.cs" />
     <Compile Include="Internal\Queue\SpscExactArrayQueue.cs" />
     <Compile Include="Internal\Queue\SpscArrayQueue.cs" />
+    <Compile Include="Internal\Queue\SpscIntArrayQueue.cs" />
+    <Compile Include="Internal\Queue\SpscStructArrayQueue.cs" />
     <Compile Include="Internal\RangeFlowable.cs" />
     <Compile Include="Internal\Schedulers\ScheduledRunnable.cs" />
     <Compile Include="Internal\Queue\SpscLinkedArrayQueue.cs" />

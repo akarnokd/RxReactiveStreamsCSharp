@@ -20,4 +20,19 @@ namespace RxReactiveStreamsCSharp.Internal.Queue
 
         void Clear();
     }
+    
+    public interface IStructuredQueue<T> where T : struct
+    {
+        bool Offer(T value);
+
+        bool TryPeek(out T value);
+
+        bool TryPoll(out T value);
+
+        int Size();
+
+        bool IsEmpty();
+
+        void Clear();
+    }
 }
